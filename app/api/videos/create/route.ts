@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,25 +18,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
     }
 
-    const openai = new OpenAI({ apiKey });
-
-    const requestBody: any = {
-      model,
-      prompt,
-      size,
-      seconds,
-    };
+    // Prepare the form data for the OpenAI API
+    const apiFormData = new FormData();
+    apiFormData.append('prompt', prompt);
+    apiFormData.append('model', model);
+    apiFormData.append('size', size);
+    apiFormData.append('seconds', seconds);
 
     // Handle input reference image
     if (inputReference) {
-      const buffer = await inputReference.arrayBuffer();
-      const file = new File([buffer], inputReference.name, { type: inputReference.type });
-      requestBody.input_reference = file;
+      apiFormData.append('input_reference', inputReference);
     }
 
-    const video = await openai.videos.create(requestBody);
+    // Make direct API call to OpenAI
+    const response = await fetch('https://api.openai.com/v1/videos', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: apiFormData,
+    });
 
-    return NextResponse.json(video);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || 'Failed to create video');
+    }
+
+    return NextResponse.json(data);
   } catch (error: any) {
     console.error('Error creating video:', error);
     return NextResponse.json(

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,15 +8,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'API key is required' }, { status: 400 });
     }
 
-    const openai = new OpenAI({ apiKey });
-    const params: any = {};
-    
-    if (limit) params.limit = limit;
-    if (after) params.after = after;
+    // Build query parameters
+    const params = new URLSearchParams();
+    if (limit) params.append('limit', limit.toString());
+    if (after) params.append('after', after);
 
-    const videos = await openai.videos.list(params);
+    const url = `https://api.openai.com/v1/videos${params.toString() ? '?' + params.toString() : ''}`;
 
-    return NextResponse.json(videos);
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || 'Failed to list videos');
+    }
+
+    return NextResponse.json(data);
   } catch (error: any) {
     console.error('Error listing videos:', error);
     return NextResponse.json(

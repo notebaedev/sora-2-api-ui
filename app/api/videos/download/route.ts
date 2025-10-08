@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,11 +12,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Video ID is required' }, { status: 400 });
     }
 
-    const openai = new OpenAI({ apiKey });
-    
-    // Download the content
-    const content = await openai.videos.downloadContent(videoId, { variant });
-    const arrayBuffer = await content.arrayBuffer();
+    // Build URL with variant query parameter if provided
+    const url = variant 
+      ? `https://api.openai.com/v1/videos/${videoId}/content?variant=${variant}`
+      : `https://api.openai.com/v1/videos/${videoId}/content`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+      },
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.error?.message || 'Failed to download video');
+    }
+
+    // Get the binary content
+    const arrayBuffer = await response.arrayBuffer();
     
     // Convert to base64 for easy transfer
     const base64 = Buffer.from(arrayBuffer).toString('base64');
