@@ -5,12 +5,15 @@ A modern, responsive web interface for OpenAI's Sora 2 Video API. Generate stunn
 ## Features
 
 - 🎥 **Video Generation**: Create videos from text prompts using Sora 2 or Sora 2 Pro
+- ✨ **Remix Videos**: Make targeted adjustments to completed videos without starting from scratch
 - 🖼️ **Image References**: Upload reference images to guide video generation
+- 💰 **Cost Tracking**: Real-time cost estimates and session total tracking
 - 📊 **Real-time Progress**: Monitor video generation progress with live updates
 - 🎬 **Video Management**: View, download, and delete generated videos
 - 💾 **Local Storage**: API key is securely stored in your browser
 - 📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
 - 🎨 **Modern UI**: Built with TailwindCSS and shadcn/ui components
+- 🔄 **Smart Error Handling**: Automatic retry logic for temporary API errors
 
 ## Getting Started
 
@@ -56,9 +59,16 @@ npm run dev
 
 4. **Optional Image Reference**: Upload a reference image to use as the first frame
 
-5. **Generate**: Click the "Generate Video" button and watch the progress
+5. **Cost Estimate**: See the estimated API cost before generating
 
-6. **View & Download**: Once complete, view the video inline or download it as an MP4
+6. **Generate**: Click the "Generate Video" button and watch the progress
+
+7. **View & Download**: Once complete, view the video inline or download it as an MP4
+
+8. **Remix Videos**: Click "Remix" on any completed video to make targeted changes:
+   - Best for single, focused edits (color palette, lighting, mood)
+   - Preserves original structure and composition
+   - Costs the same as generating a new video with the same settings
 
 ## Project Structure
 
@@ -83,6 +93,7 @@ sora-2-api-ui/
 ## API Endpoints
 
 - `POST /api/videos/create` - Start a new video generation
+- `POST /api/videos/remix` - Remix an existing completed video
 - `POST /api/videos/status` - Check video generation status
 - `POST /api/videos/download` - Download video or thumbnail
 - `POST /api/videos/list` - List all videos
@@ -99,11 +110,21 @@ sora-2-api-ui/
 
 ## Tips for Best Results
 
+### Video Generation
 1. **Be Specific**: Include details about camera angles, lighting, and motion
 2. **Use sora-2** for quick iterations and testing
 3. **Use sora-2-pro** for final, production-quality renders
 4. **Reference Images**: Must match your target resolution
 5. **Content Guidelines**: Avoid copyrighted content, real people, and content unsuitable for under-18 audiences
+
+### Remixing Videos
+1. **Single Changes**: Make one focused edit at a time (color palette, lighting, mood)
+2. **Small Steps**: Multiple small remixes preserve more fidelity than one large change
+3. **Be Precise**: Clearly describe the specific adjustment you want
+4. **Example Prompts**:
+   - "Shift the color palette to teal, sand, and rust"
+   - "Add warm backlight and golden hour atmosphere"
+   - "Change to a moody, noir-style lighting"
 
 ## Troubleshooting
 

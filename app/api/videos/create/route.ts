@@ -42,15 +42,29 @@ export async function POST(request: NextRequest) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error?.message || 'Failed to create video');
+      console.error('OpenAI API error:', {
+        status: response.status,
+        error: data.error?.message || data.error || 'Unknown error'
+      });
+      
+      const errorMessage = data.error?.message || data.error || 'Failed to create video';
+      throw new Error(errorMessage);
     }
 
     return NextResponse.json(data);
   } catch (error: any) {
     console.error('Error creating video:', error);
+    
+    // Provide more helpful error messages
+    let errorMessage = error.message || 'Failed to create video';
+    
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      errorMessage = 'Network error. Please check your connection.';
+    }
+    
     return NextResponse.json(
-      { error: error.message || 'Failed to create video' },
-      { status: 500 }
+      { error: errorMessage },
+      { status: error.status || 500 }
     );
   }
 }
