@@ -274,27 +274,27 @@ export default function Home() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'text-green-600';
+        return 'text-green-400';
       case 'failed':
-        return 'text-red-600';
+        return 'text-red-400';
       case 'in_progress':
-        return 'text-blue-600';
+        return 'text-blue-400';
       case 'queued':
-        return 'text-yellow-600';
+        return 'text-yellow-400';
       default:
-        return 'text-gray-600';
+        return 'text-gray-400';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 text-center">
           <div className="flex items-center justify-center gap-3 mb-2">
             <Video className="w-10 h-10 text-primary" />
-            <h1 className="text-4xl font-bold text-gray-900">Sora 2 API UI</h1>
+            <h1 className="text-4xl font-bold text-white">Sora 2 API UI</h1>
           </div>
-          <p className="text-gray-600">Generate stunning videos with OpenAI's Sora 2</p>
+          <p className="text-gray-400">Generate stunning videos with OpenAI's Sora 2</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -382,9 +382,9 @@ export default function Home() {
                       </Button>
                     </div>
                   ) : (
-                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50">
-                      <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
-                      <span className="text-sm text-gray-500">Click to upload image</span>
+                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-800/50">
+                      <ImageIcon className="w-8 h-8 text-gray-500 mb-2" />
+                      <span className="text-sm text-gray-400">Click to upload image</span>
                       <Input
                         type="file"
                         accept="image/jpeg,image/png,image/webp"
@@ -396,7 +396,7 @@ export default function Home() {
                 </div>
 
                 {error && (
-                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                  <div className="p-3 bg-red-950/50 border border-red-800 rounded-lg text-red-300 text-sm">
                     {error}
                   </div>
                 )}
@@ -432,8 +432,8 @@ export default function Home() {
               <CardContent>
                 {videos.length === 0 ? (
                   <div className="text-center py-12">
-                    <Video className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500">No videos yet. Generate your first video!</p>
+                    <Video className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                    <p className="text-gray-400">No videos yet. Generate your first video!</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -442,7 +442,7 @@ export default function Home() {
                         <div className="p-4">
                           <div className="flex gap-4">
                             {/* Thumbnail or video player */}
-                            <div className="flex-shrink-0 w-32 h-24 bg-gray-100 rounded-lg overflow-hidden">
+                            <div className="flex-shrink-0 w-32 h-24 bg-gray-800 rounded-lg overflow-hidden">
                               {video.videoUrl ? (
                                 <video
                                   src={video.videoUrl}
@@ -468,14 +468,14 @@ export default function Home() {
 
                             {/* Video info */}
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm text-gray-600 line-clamp-2 mb-2">
+                              <p className="text-sm text-gray-300 line-clamp-2 mb-2">
                                 {video.prompt}
                               </p>
-                              <div className="flex flex-wrap gap-2 text-xs text-gray-500 mb-2">
-                                <span className="px-2 py-1 bg-gray-100 rounded">{video.model}</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded">{video.size}</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded">{video.seconds}s</span>
-                                <span className={`px-2 py-1 bg-gray-100 rounded font-medium ${getStatusColor(video.status)}`}>
+                              <div className="flex flex-wrap gap-2 text-xs text-gray-400 mb-2">
+                                <span className="px-2 py-1 bg-gray-800 rounded">{video.model}</span>
+                                <span className="px-2 py-1 bg-gray-800 rounded">{video.size}</span>
+                                <span className="px-2 py-1 bg-gray-800 rounded">{video.seconds}s</span>
+                                <span className={`px-2 py-1 bg-gray-800 rounded font-medium ${getStatusColor(video.status)}`}>
                                   {video.status}
                                 </span>
                               </div>
@@ -484,7 +484,7 @@ export default function Home() {
                               {(video.status === 'in_progress' || video.status === 'queued') && (
                                 <div className="space-y-1">
                                   <Progress value={video.progress || 0} />
-                                  <p className="text-xs text-gray-500">
+                                  <p className="text-xs text-gray-400">
                                     {video.progress || 0}% complete
                                   </p>
                                 </div>
