@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { getApiUrl } from '@/lib/api';
 import { Video, Trash2, Download, Image as ImageIcon, Loader2, Play, Eye, DollarSign, Sparkles, X } from 'lucide-react';
 
 interface VideoJob {
@@ -123,7 +124,7 @@ export default function Home() {
         formData.append('inputReference', inputImage);
       }
 
-      const response = await fetch('/api/videos/create', {
+      const response = await fetch(getApiUrl('/videos/create'), {
         method: 'POST',
         body: formData,
       });
@@ -166,7 +167,7 @@ export default function Home() {
 
     const poll = async () => {
       try {
-        const response = await fetch('/api/videos/status', {
+        const response = await fetch(getApiUrl('/videos/status'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ apiKey, videoId }),
@@ -261,7 +262,7 @@ export default function Home() {
 
   const downloadThumbnail = async (videoId: string) => {
     try {
-      const response = await fetch('/api/videos/download', {
+      const response = await fetch(getApiUrl('/videos/download'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ apiKey, videoId, variant: 'thumbnail' }),
@@ -284,7 +285,7 @@ export default function Home() {
 
   const downloadVideo = async (videoId: string, prompt: string) => {
     try {
-      const response = await fetch('/api/videos/download', {
+      const response = await fetch(getApiUrl('/videos/download'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ apiKey, videoId, variant: 'video' }),
@@ -320,7 +321,7 @@ export default function Home() {
 
   const viewVideo = async (videoId: string) => {
     try {
-      const response = await fetch('/api/videos/download', {
+      const response = await fetch(getApiUrl('/videos/download'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ apiKey, videoId, variant: 'video' }),
@@ -349,7 +350,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/videos/delete', {
+      const response = await fetch(getApiUrl('/videos/delete'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ apiKey, videoId }),
@@ -379,7 +380,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/videos/remix', {
+      const response = await fetch(getApiUrl('/videos/remix'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ apiKey, videoId, prompt: remixPrompt }),

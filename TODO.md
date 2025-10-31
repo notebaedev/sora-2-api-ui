@@ -1,19 +1,19 @@
 # TODO: Cloudflare Migration
 
 ## Front-end: Static Build for Cloudflare Pages
-- [ ] Update Next.js configuration for static export
-  - [ ] Set `output: 'export'` in `next.config.mjs`
-  - [ ] Verify `next/image` usage and adjust to static-friendly alternatives if needed
-- [ ] Create API base URL abstraction
-  - [ ] Implement helper to resolve `NEXT_PUBLIC_API_BASE_URL` with sensible defaults
-  - [ ] Replace all `/api/videos/*` fetch calls to use the helper
-  - [ ] Ensure TypeScript types reflect new helper usage
-- [ ] Update build and deployment scripts
-  - [ ] Adjust `package.json` scripts to run static export before deploy
-  - [ ] Document local static preview workflow (e.g., `npx serve out`)
-- [ ] Audit environment variables
-  - [ ] Ensure `NEXT_PUBLIC_API_BASE_URL` is documented for Pages deployment
-  - [ ] Provide guidance for local dev vs. production values
+- [x] Update Next.js configuration for static export
+  - [x] Set `output: 'export'` in `next.config.mjs`
+  - [x] Verify `next/image` usage and adjust to static-friendly alternatives if needed
+- [x] Create API base URL abstraction
+  - [x] Implement helper to resolve `NEXT_PUBLIC_API_BASE_URL` with sensible defaults
+  - [x] Replace all `/api/videos/*` fetch calls to use the helper
+  - [x] Ensure TypeScript types reflect new helper usage
+- [x] Update build and deployment scripts
+  - [x] Adjust `package.json` scripts to run static export before deploy
+  - [x] Document local static preview workflow (e.g., `npx serve out`)
+- [x] Audit environment variables
+  - [x] Ensure `NEXT_PUBLIC_API_BASE_URL` is documented for Pages deployment
+  - [x] Provide guidance for local dev vs. production values
 
 ## Backend: Cloudflare Worker API Proxy
 - [ ] Scaffold Worker project structure
