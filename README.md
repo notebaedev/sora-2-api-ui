@@ -35,12 +35,39 @@ cd sora-2-api-ui
 npm install
 ```
 
-3. Run the development server:
+3. Configure environment variables (optional for local dev):
+   - Copy `.env.example` to `.env.local`:
+     ```bash
+     cp .env.example .env.local
+     ```
+   - For local Next.js development the default value points to the built-in API routes, so you can leave the value commented out unless you are testing against a remote Worker.
+
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Static build & preview (Cloudflare Pages)
+
+1. Generate the static build:
+   ```bash
+   npm run build
+   ```
+   This runs `next build` followed by `next export` to produce the static site in the `out/` directory.
+
+2. Preview the exported site locally:
+   ```bash
+   npm run preview:static
+   ```
+   This command serves the contents of `out/` on a local development server so you can verify the static output before deploying to Cloudflare Pages.
+
+### Environment variables
+
+| Variable | Required | Description | Local value | Production (Cloudflare Pages) |
+| --- | --- | --- | --- | --- |
+| `NEXT_PUBLIC_API_BASE_URL` | Optional for local Next.js dev | Base URL for all `/api/videos/*` requests from the browser. | Leave unset to default to the local Next.js API routes (`/api`). Set to `http://127.0.0.1:8787` when developing against a local Worker (`wrangler dev`). | Set to the deployed Worker URL (e.g., `https://<your-worker>.workers.dev` or the Pages Functions route) so the static site calls the Worker endpoints. |
 
 ### Usage
 
@@ -83,6 +110,7 @@ sora-2-api-ui/
 ├── components/
 │   └── ui/                  # Reusable UI components
 ├── lib/
+│   ├── api.ts               # API base URL helpers
 │   └── utils.ts             # Utility functions
 ├── package.json
 ├── tsconfig.json
