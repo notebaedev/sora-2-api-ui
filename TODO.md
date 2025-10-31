@@ -16,45 +16,45 @@
   - [x] Provide guidance for local dev vs. production values
 
 ## Backend: Cloudflare Worker API Proxy
-- [ ] Scaffold Worker project structure
-  - [ ] Add `wrangler.toml` with routes for `/videos/*`
-  - [ ] Create Worker entry file (TypeScript preferred)
-  - [ ] Configure build command (esbuild/wrangler) for TypeScript
-- [ ] Implement endpoints mirroring current Next.js API routes
-  - [ ] `/videos/create` to forward multipart form data to OpenAI
-    - [ ] Validate request size and required fields
-    - [ ] Stream response back to client with appropriate status handling
-  - [ ] `/videos/status` to proxy polling requests
-    - [ ] Preserve retry logic and 5xx handling semantics
-  - [ ] `/videos/download` to return base64 media payloads
-    - [ ] Implement `arrayBufferToBase64` helper without Node `Buffer`
-  - [ ] `/videos/list` and `/videos/delete` passthrough implementations
-  - [ ] `/videos/remix` JSON passthrough implementation
-- [ ] Shared Worker utilities
-  - [ ] Create helper for forwarding headers (e.g., `Authorization`)
-  - [ ] Centralize JSON error responses and logging
-  - [ ] Add CORS headers and OPTIONS handling for each route
-- [ ] Secrets and configuration
-  - [ ] Confirm no server-side OpenAI keys are stored; document expectation for client-provided keys
-  - [ ] Note Cloudflare Worker limits (upload size, execution time) in docs
+- [x] Scaffold Worker project structure
+  - [x] Add `wrangler.toml` with routes for `/videos/*`
+  - [x] Create Worker entry file (TypeScript preferred)
+  - [x] Configure build command (esbuild/wrangler) for TypeScript
+- [x] Implement endpoints mirroring current Next.js API routes
+  - [x] `/videos/create` to forward multipart form data to OpenAI
+    - [x] Validate request size and required fields
+    - [x] Stream response back to client with appropriate status handling
+  - [x] `/videos/status` to proxy polling requests
+    - [x] Preserve retry logic and 5xx handling semantics
+  - [x] `/videos/download` to return base64 media payloads
+    - [x] Implement `arrayBufferToBase64` helper without Node `Buffer`
+  - [x] `/videos/list` and `/videos/delete` passthrough implementations
+  - [x] `/videos/remix` JSON passthrough implementation
+- [x] Shared Worker utilities
+  - [x] Create helper for forwarding headers (e.g., `Authorization`)
+  - [x] Centralize JSON error responses and logging
+  - [x] Add CORS headers and OPTIONS handling for each route
+- [x] Secrets and configuration
+  - [x] Confirm no server-side OpenAI keys are stored; document expectation for client-provided keys
+  - [x] Note Cloudflare Worker limits (upload size, execution time) in docs
 
 ## Integration & Deployment
-- [ ] Local development workflow
-  - [ ] Document running `wrangler dev` alongside `next dev`
-  - [ ] Configure `.env.local` to point to local Worker (`http://127.0.0.1:8787`)
-- [ ] Production deployment steps
-  - [ ] Configure Cloudflare Pages project to serve static `out/` directory
-  - [ ] Deploy Worker and bind to `/api/videos/*` via routes or Pages Functions
-  - [ ] Set `NEXT_PUBLIC_API_BASE_URL` in Pages environment to Worker URL
-- [ ] Continuous deployment pipeline
-  - [ ] Update CI to build static site and deploy Worker
-  - [ ] Add validation steps (lint/build) before deployment
+- [x] Local development workflow
+  - [x] Document running `wrangler dev` alongside `next dev`
+  - [x] Configure `.env.local` to point to local Worker (`http://127.0.0.1:8787`)
+- [x] Production deployment steps
+  - [x] Configure Cloudflare Pages project to serve static `out/` directory
+  - [x] Deploy Worker and bind to `/api/videos/*` via routes or Pages Functions
+  - [x] Set `NEXT_PUBLIC_API_BASE_URL` in Pages environment to Worker URL
+- [x] Continuous deployment pipeline
+  - [x] Update CI to build static site and deploy Worker
+  - [x] Add validation steps (lint/build) before deployment
 
 ## Documentation & Testing
-- [ ] Update README with Cloudflare deployment instructions
-  - [ ] Include environment variable descriptions
-  - [ ] Add troubleshooting tips for CORS and file-size limits
-- [ ] Add section detailing Worker architecture and endpoints
-- [ ] Testing plan
-  - [ ] Define manual QA checklist covering creation, status polling, download, delete, remix
-  - [ ] Consider automated smoke tests hitting Worker endpoints via Pages-hosted UI
+- [x] Update README with Cloudflare deployment instructions
+  - [x] Include environment variable descriptions
+  - [x] Add troubleshooting tips for CORS and file-size limits
+- [x] Add section detailing Worker architecture and endpoints
+- [x] Testing plan
+  - [x] Define manual QA checklist covering creation, status polling, download, delete, remix
+  - [x] Consider automated smoke tests hitting Worker endpoints via Pages-hosted UI
