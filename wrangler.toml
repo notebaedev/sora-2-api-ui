@@ -1,0 +1,14 @@
+name = "sora-2-api-proxy"
+main = "worker/src/index.ts"
+compatibility_date = "2024-07-01"
+workers_dev = true
+
+[build]
+command = "npm run worker:build"
+
+[dev]
+port = 8787
+
+[[routes]]
+pattern = "example.com/api/videos/*"
+zone_name = "example.com"

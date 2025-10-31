@@ -442,7 +442,7 @@ export default function Home() {
               <Video className="w-10 h-10 text-primary" />
               <h1 className="text-4xl font-bold text-white">Sora 2 API UI</h1>
             </div>
-            <p className="text-gray-400">Generate stunning videos with OpenAI's Sora 2</p>
+            <p className="text-gray-400">Generate stunning videos with OpenAI’s Sora 2</p>
           </div>
           
           {/* Session Cost Display */}
